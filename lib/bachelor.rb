@@ -52,11 +52,9 @@ def get_occupation(data, hometown)
 end
 
 def get_average_age_for_season(data, season)
-  contest_age = find_correct_season(data, season)[season].reduce({age: 0, count: 0}) {|age_and_count, contestant| 
-    age_and_count[:age] += contestant["age"].to_i;
-    age_and_count[:count] += 1;
-    age_and_count 
-  }
-(contest_age[:age]/contest_age[:count].to_f).round(); 
-#For my own understanding => .to_f converts to float, which stores the 19/25 lost from Integers, then rounds
+    contestant_total_age = find_correct_season(data, season)[season].reduce(0) {|sum_of_age, contestant| 
+      sum_of_age + contestant["age"].to_i 
+    }
+  (contestant_total_age/data[season].length.to_f).round
+  #For my own understanding => .to_f converts to float, which stores the 19/25 lost from Integers, then rounds
 end
